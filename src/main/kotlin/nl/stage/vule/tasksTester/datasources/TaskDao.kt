@@ -13,18 +13,18 @@ class TaskDao constructor(var dbConnection : Connection = DatabaseConnection.get
     fun addTaskToDatabase(addedTask : TaskDto): TaskResponse {
         val taskResponse : TaskResponse = TaskResponse()
         try {
-                val st: PreparedStatement = dbConnection.prepareStatement("INSERT INTO TASK (TASKID, DESCRIPTION, DURATION, SPRINTNO, DEVELOPER) VALUES(?,?,?,?,?)")
-                var randomID : String = RandomStringUtils.randomAlphabetic(8)
-                st.setString(1,randomID)
-                st.setString(2,addedTask.taskDescription)
-                st.setInt(3, addedTask.taskDuration!!)
-                st.setInt(4,addedTask.taskSprintNo!!)
-                st.setString(5,addedTask.taskDeveloper)
+            val st: PreparedStatement = dbConnection.prepareStatement("INSERT INTO TASK (TASKID, DESCRIPTION, DURATION, SPRINTNO, DEVELOPER) VALUES(?,?,?,?,?)")
+            val randomID : String = RandomStringUtils.randomAlphabetic(8)
+            st.setString(1,randomID)
+            st.setString(2,addedTask.taskDescription)
+            st.setInt(3, addedTask.taskDuration!!)
+            st.setInt(4,addedTask.taskSprintNo!!)
+            st.setString(5,addedTask.taskDeveloper)
 
-                st.executeUpdate()
-                st.close()
+            st.executeUpdate()
+            st.close()
 
-                taskResponse.tasks?.add(TaskDto(randomID, addedTask.taskDescription, addedTask.taskDuration, addedTask.taskSprintNo, addedTask.taskDeveloper))
+            taskResponse.tasks?.add(TaskDto(randomID, addedTask.taskDescription, addedTask.taskDuration, addedTask.taskSprintNo, addedTask.taskDeveloper))
         }
         catch(e : SQLException){
             e.printStackTrace()
