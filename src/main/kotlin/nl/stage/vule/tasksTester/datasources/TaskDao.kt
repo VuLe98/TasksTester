@@ -6,7 +6,6 @@ import nl.stage.vule.tasksTester.services.TaskResponse
 import nl.stage.vule.tasksTester.services.dto.TaskDto
 import org.apache.commons.lang.RandomStringUtils
 import java.sql.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 class TaskDao constructor(var dbConnection : Connection = DatabaseConnection.getInstance()!!){
@@ -37,7 +36,7 @@ class TaskDao constructor(var dbConnection : Connection = DatabaseConnection.get
         try {
             for (task in tasksArray) {
                 val st: PreparedStatement = dbConnection.prepareStatement("UPDATE TASK SET SPRINTNO = ? WHERE TASKID = ?")
-                var currentSprintOfTask = getCurrentSprintOfTask(task.taskID!!)
+                val currentSprintOfTask = getCurrentSprintOfTask(task.taskID!!)
                 st.setInt(1, currentSprintOfTask + 1)
                 st.setString(2,task.taskID)
 
@@ -59,7 +58,11 @@ class TaskDao constructor(var dbConnection : Connection = DatabaseConnection.get
 
             val resultSet: ResultSet? = st.executeQuery()
 
-            return resultSet!!.getInt("SPRINTNO")
+            while(resultSet!!.next()){
+                currentSprintOfTask = resultSet.getInt("SPRINTNO")
+            }
+
+            return currentSprintOfTask
         }
         catch(e : SQLException){
             e.printStackTrace()

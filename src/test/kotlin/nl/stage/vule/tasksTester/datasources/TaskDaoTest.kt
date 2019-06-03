@@ -146,6 +146,17 @@ internal class TaskDaoTest {
 
     @Test
     @Throws(SQLException::class)
+    fun doesGetCurrentSprintOfTaskGetInfo(){
+        `when`(resultSet.next()).thenReturn(true).thenReturn(false)
+        `when`(resultSet.getInt("SPRINTNO")).thenReturn(testDto.taskSprintNo)
+
+        sut.getCurrentSprintOfTask(testDto.taskID!!)
+
+        verify(resultSet).getInt("SPRINTNO")
+    }
+
+    @Test
+    @Throws(SQLException::class)
     fun doesGetCurrentSprintOfTaskHandleSQLExceptionCorrect(){
         `when`(connection.prepareStatement(anyString())).thenThrow(sqlException)
 
