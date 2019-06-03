@@ -4,7 +4,7 @@ import nl.stage.vule.tasksTester.datasources.jdbc.DatabaseConnection
 import nl.stage.vule.tasksTester.exceptionMapper.exceptions.SQLError
 import nl.stage.vule.tasksTester.services.TaskResponse
 import nl.stage.vule.tasksTester.services.dto.TaskDto
-import org.apache.commons.lang.RandomStringUtils
+import org.apache.commons.lang3.RandomStringUtils
 import java.sql.*
 import kotlin.collections.ArrayList
 
