@@ -8,6 +8,11 @@ Kotlin
 ## Development environment 
 IntelliJ
 
+## Build automation system
+Gradle
+
 ## Postman (test the API)
 https://www.getpostman.com/collections/b6bb22beceb86e9efae0
+
+
 
